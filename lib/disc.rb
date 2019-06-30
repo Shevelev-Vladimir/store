@@ -5,7 +5,6 @@ class Disс < Product
   PRODUCT_NAME = "Альбом"
 
   def to_s
-    "#{PRODUCT_NAME} #{autor} - «#{name}», #{genre}, #{released}, \
-      #{price} руб. (осталось #{amount})"
+    "#{PRODUCT_NAME} #{autor} - «#{title}», #{genre}, #{released}, #{super}"
   end
 end
