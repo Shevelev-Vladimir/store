@@ -12,6 +12,7 @@ class Product
     @amount = params[:amount]
   end
 
+  # Вывод информации в заданном формате.
   def to_s
     "#{@price} руб. (осталось #{@amount})"
   end
@@ -24,8 +25,8 @@ class Product
     @amount = params[:amount] if params[:amount]
   end
 
-  def from_file
-    error = "NotImplementedError"
-    puts error
+  # Абстрактный метод, призванный для считывания информации из файла.
+  def self.from_file(path)
+    raise "NotImplementedError"
   end
 end
