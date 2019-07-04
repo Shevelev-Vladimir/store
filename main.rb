@@ -61,7 +61,7 @@ begin
 
   system('cls') || system('clear')
 
-  puts "Вы купили: \n\n#{basket.to_s}"
+  puts "Вы купили: \n\n#{basket}"
 
   puts "\nС Вас — #{basket.price_all} руб. Спасибо за покупки!"
 
