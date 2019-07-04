@@ -1,3 +1,6 @@
+# encoding: utf-8
+
+# Класс Витрина магазина.
 class ProductCollection
   # Константа с хэшем (ключ - имя папки, значение - ещё один хэш (ключ - /
   # название папки, значение - ссылка на соответствующий класс)).
@@ -7,8 +10,20 @@ class ProductCollection
     book: {dir: 'books', class: Book}
   }
 
+  # Вывод списка продуктов, которые есть в наличии, на витрину.
+  def put_to_sale
+    # Удаляем товары с нулевым количеством.
+    @products.reject! { |product| product.amount.zero? }
+    @products.to_a.map.with_index(1) { |product, index| "#{index}. #{product}" }
+  end
+
   def initialize(products = [])
     @products = products
+  end
+
+  # Определяет входит ли ввод пользователя в заданный диапазон.
+  def include?(number)
+    (0..@products.size).include?(number)
   end
 
   # Считывает продукты из папки data.
@@ -29,37 +44,6 @@ class ProductCollection
     end
 
     self.new(products)
-  end
-
-  # Добавляем продукт в корзину.
-  def add_to_purchase(product)
-    @products << product
-  end
-
-  # Вывод списка продуктов, которые есть в наличии, на витрину.
-  def put_to_sale
-    # Удаляем товары с нулевым количеством.
-    @products.reject! { |product| product.amount.zero? }
-    @products.to_a.map.with_index(1) { |product, index| "#{index}. #{product}" }
-  end
-
-  # Возвращает массив товаров.
-  def to_a
-    @products
-  end
-
-  def to_s
-    @products.map(&:to_s).join("\n")
-  end
-
-  def include?(number)
-    (0..@products.size).include?(number)
-  end
-
-  # Общая цена.
-  def price_all
-    price_all = 0
-    @products.sum { |product| product.price }
   end
 
   # Сортирует товары по цене, остатку на складе или по названию /
@@ -84,5 +68,10 @@ class ProductCollection
     # Возвращаем ссылку на экземпляр, чтобы у него по цепочке можно было вызвать
     # другие методы.
     self
+  end
+
+  # Возвращает массив товаров.
+  def to_a
+    @products
   end
 end

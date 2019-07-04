@@ -6,6 +6,12 @@ class Film < Product
 
   attr_accessor :released
 
+  def initialize(params)
+    super
+
+    @released = params[:released]
+  end
+
   def self.from_file(path)
     lines = File.readlines(path, encoding: 'UTF-8').map { |l| l.chomp }
 
@@ -16,12 +22,6 @@ class Film < Product
       price: lines[3].to_i,
       amount: lines[4].to_i
     )
-  end
-
-  def initialize(params)
-    super
-
-    @released = params[:released]
   end
 
   def to_s

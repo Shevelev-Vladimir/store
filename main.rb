@@ -2,7 +2,7 @@
 
 # Программа "Магазин книг и фильмов".
 # Вывод версии программы.
-VERSION = 1.0
+VERSION = 1.1
 puts  "Программа \"Магазин книг и фильмов\". Версия #{VERSION}."
 
 # Этот код необходим только при использовании русских букв на Windows
@@ -17,9 +17,10 @@ end
 
 # Подключаем классы товара и классов-детей: книги и фильма
 require_relative 'lib/product'
+require_relative 'lib/basket'
 require_relative 'lib/book'
-require_relative 'lib/film'
 require_relative 'lib/disc'
+require_relative 'lib/film'
 require_relative 'lib/product_collection'
 
 begin
@@ -30,7 +31,7 @@ begin
   product_collection.sort!(by: :price, order: :asc)
 
   # Создаём продуктовую корзину.
-  basket = ProductCollection.new
+  basket = Basket.new
 
   loop do
     puts "\nЧто хотите купить:\n\n"
