@@ -8,8 +8,8 @@ class Product
   def initialize(params)
     @title = params[:title]
     @autor = params[:autor]
-    @price = params[:price]
-    @amount = params[:amount]
+    @price = params[:price].to_i
+    @amount = params[:amount].to_i
   end
 
   # Вывод информации в заданном формате.

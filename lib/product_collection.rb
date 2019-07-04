@@ -3,6 +3,7 @@ class ProductCollection
   # название папки, значение - ссылка на соответствующий класс)).
   PRODUCT_TYPES = {
     film: {dir: 'films', class: Film},
+    disc: {dir: 'discs', class: Disc},
     book: {dir: 'books', class: Book}
   }
 
@@ -22,12 +23,24 @@ class ProductCollection
       product_class = hash[:class]
 
       # Передаем путь к файлу в метод класса from_file
-      Dir["#{path_dir}/#{product_dir}/*.txt"].each do |path|
+      Dir["#{path_dir}/#{product_dir}/*.txt"].each { |path|
         products << product_class.from_file(path)
-      end
+      }
     end
 
     self.new(products)
+  end
+
+  # Добавляем продукт в корзину.
+  def add_to_purchase(product)
+    @products << product
+  end
+
+  # Вывод списка продуктов, которые есть в наличии, на витрину.
+  def put_to_sale
+    # Удаляем товары с нулевым количеством.
+    @products.reject! { |product| product.amount.zero? }
+    @products.to_a.map.with_index(1) { |product, index| "#{index}. #{product}" }
   end
 
   # Возвращает массив товаров.
@@ -35,9 +48,23 @@ class ProductCollection
     @products
   end
 
+  def to_s
+    @products.map(&:to_s).join("\n")
+  end
+
+  def include?(number)
+    (0..@products.size).include?(number)
+  end
+
+  # Общая цена.
+  def price_all
+    price_all = 0
+    @products.sum { |product| product.price }
+  end
+
   # Сортирует товары по цене, остатку на складе или по названию /
   # (как по возрастанию, так и по убыванию)
-   def sort!(params)
+  def sort!(params)
     # Делает выбор по параметру by
     case params[:by]
     when :title
