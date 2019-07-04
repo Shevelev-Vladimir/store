@@ -43,7 +43,7 @@ begin
 
     # Условия выхода из цикла.
     break if user_input == 0
-    # Запуск цикла сначала, если пользователь выбрал товар с остатком < 1.
+    # Проверка ввода пользователя, запуск цикла сначала.
     redo unless product_collection.include?(user_input)
 
     user_choise = product_collection.to_a[user_input - 1]
