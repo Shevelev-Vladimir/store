@@ -2,7 +2,7 @@
 
 # Программа "Магазин книг и фильмов".
 # Вывод версии программы.
-VERSION = 1.1
+VERSION = 1.2
 puts  "Программа \"Магазин книг и фильмов\". Версия #{VERSION}."
 
 # Этот код необходим только при использовании русских букв на Windows
@@ -34,9 +34,11 @@ begin
   basket = Basket.new
 
   loop do
+    product_collection.remove_zero_quantities
+
     puts "\nЧто хотите купить:\n\n"
 
-    puts product_collection.put_to_sale
+    puts product_collection.to_s
 
     puts "0. Выход\n"
 

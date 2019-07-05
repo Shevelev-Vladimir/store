@@ -9,8 +9,7 @@ class Basket
 
   # Считает общую цену.
   def price_all
-    price_all = 0
-    @products.sum { |product| product.price }
+    @products.sum(&:price)
   end
 
   def initialize
@@ -18,6 +17,6 @@ class Basket
   end
 
   def to_s
-    @products.map(&:to_s).join("\n")
+    @products.join("\n")
   end
 end

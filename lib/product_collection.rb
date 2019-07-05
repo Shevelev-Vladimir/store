@@ -10,11 +10,9 @@ class ProductCollection
     book: {dir: 'books', class: Book}
   }
 
-  # Вывод списка продуктов, которые есть в наличии, на витрину.
-  def put_to_sale
-    # Удаляем товары с нулевым количеством.
+  # Удаляем товары с нулевым количеством.
+  def remove_zero_quantities
     @products.reject! { |product| product.amount.zero? }
-    @products.to_a.map.with_index(1) { |product, index| "#{index}. #{product}" }
   end
 
   def initialize(products = [])
@@ -53,13 +51,13 @@ class ProductCollection
     case params[:by]
     when :title
       # Если запросили сортировку по наименованию
-      @products.sort_by! { |product| product.to_s }
+      @products.sort_by!(&:to_s)
     when :price
       # Если запросили сортировку по цене
-      @products.sort_by! { |product| product.price }
+      @products.sort_by!(&:price)
     when :amount
       # Если запросили сортировку по количеству
-      @products.sort_by! { |product| product.amount }
+      @products.sort_by!(&:amount)
     end
 
     # Если запросили сортировку по возрастанию
@@ -73,5 +71,10 @@ class ProductCollection
   # Возвращает массив товаров.
   def to_a
     @products
+  end
+
+  # Вывод списка продуктов, которые есть в наличии, на витрину.
+  def to_s
+    @products.to_a.map.with_index(1) { |product, index| "#{index}. #{product}" }
   end
 end
