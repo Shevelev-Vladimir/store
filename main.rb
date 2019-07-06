@@ -38,7 +38,7 @@ begin
 
     puts "\nЧто хотите купить:\n\n"
 
-    puts product_collection.to_s
+    puts product_collection
 
     puts "0. Выход\n"
 

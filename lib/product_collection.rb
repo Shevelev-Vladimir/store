@@ -75,6 +75,6 @@ class ProductCollection
 
   # Вывод списка продуктов, которые есть в наличии, на витрину.
   def to_s
-    @products.to_a.map.with_index(1) { |product, index| "#{index}. #{product}" }
+    @products.map.with_index(1) { |product, index| "#{index}. #{product}" }.join("\n")
   end
 end
